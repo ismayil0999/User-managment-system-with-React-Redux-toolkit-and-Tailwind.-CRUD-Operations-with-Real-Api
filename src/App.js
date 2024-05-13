@@ -1,23 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { Route, Routes } from "react-router";
+import Home from "./components/Home";
+import AddUser from "./components/spesific/AddUser";
+import UpdateUser from "./components/spesific/UpdateUser";
+import Alert from "./components/spesific/SuccessAlert";
+import SuccessAlert from "./components/spesific/SuccessAlert";
+import ErrorAlert from "./components/spesific/ErrorAlert";
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div className="w-full h-[100vh] flex justify-center items-start lg:items-center">
+      <Home/>
+      <SuccessAlert/>
+      <ErrorAlert/>
+      </div>
+  <Routes>
+  <Route path="/updateUser/:id" element={<UpdateUser/>}></Route>
+    <Route path="/AddNewUser" element={<AddUser/>}></Route>
+  </Routes>
     </div>
   );
 }
