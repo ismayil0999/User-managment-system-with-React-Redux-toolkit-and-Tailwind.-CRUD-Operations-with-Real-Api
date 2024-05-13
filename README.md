@@ -4,4 +4,5 @@ Backend üçün isə ExpressJS və MongoDB istifadə edərək POST,GET,DELETE VE
 
 Proyektdə isitfadəçi əlavə etmək, silmək, güncəlləmək və axtarış etmək funksiyaları mövcuddur.
 
-Proyekti demo versiyasında daha ətraflı nəzərdən keçirə bilərsiniz
+Proyekti demo versiyasında daha ətraflı nəzərdən keçirə bilərsiniz.
+Backend pulsuz serverə deploy edildiyi üçün demo versiyaya baxarkən serverdən cavab gec gələ bilər
