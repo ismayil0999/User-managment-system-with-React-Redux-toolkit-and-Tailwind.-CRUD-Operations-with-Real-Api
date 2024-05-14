@@ -10,8 +10,8 @@ import { useState } from "react";
 function AddUser(){
     const navigate=useNavigate()
     const dispatch=useDispatch()
-    const { skip,searchTerm,adduserloading } = useSelector(state => state.data);
-    const [setLoading]=useState(false)
+    const { skip,searchTerm} = useSelector(state => state.data);
+    const [loading,setLoading]=useState(false)
 const initialValues={
     name:"",
     lastname:"",
@@ -28,14 +28,16 @@ const validationSchema = Yup.object().shape({
 
 const onSubmit=async(values)=>{
 try{
+    //Funksiya çağırıldıqda serverdən cavab gələnə qədər buton içində wait yazısını göstərmək üçün
+    setLoading(true)
     await dispatch(addUser(values))
     dispatch(getUsers({
         skip:skip,
         searchValue:searchTerm
     }))
-    setLoading(true)
 }catch(error){
     console.log(error)
+    setLoading(false)
 }
 finally{
     navigate("/")
@@ -86,7 +88,7 @@ onChange={formik.handleChange}
 value={formik.values.email || ""}
 />
 {formik.errors.email && <p className="w-full mt-[-15px] text-red-600 font-bold">{formik.errors.email}</p>}
-             <Button type="submit" title={adduserloading===true ? "Wait" : "Add user"} height="h-[40px]" background="bg-blue-600"></Button>
+             <Button type="submit" title={loading===true ? "Wait" : "Add user"} height="h-[40px]" background="bg-blue-600"></Button>
           
         </form>
        </div>

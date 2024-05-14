@@ -8,11 +8,13 @@ import { useNavigate,useParams } from "react-router-dom";
 import { useDispatch,useSelector } from "react-redux";
 import { getUsers } from "../../redux/userdata";
 import { updateUser } from "../../redux/userdata";
+import { useState } from "react";
 
 function UpdateUser(){
     const navigate=useNavigate()
     const dispatch=useDispatch()
-    const { skip,searchTerm,updateuserloading } = useSelector(state => state.data);
+    const { skip,searchTerm} = useSelector(state => state.data);
+    const [loading,setLoading]=useState(false)
     const {id}=useParams()
 const initialValues={
     name:"",
@@ -30,6 +32,8 @@ const validationSchema = Yup.object().shape({
 
 const onSubmit=async(values)=>{
 try{
+    //Funksiya çağırıldıqda serverdən cavab gələnə qədər buton içində wait yazısını göstərmək üçün
+    setLoading(true)
       //İstifadəçi güncəlləmək üçün form məlumatlarını APİ-yə Post edirik.
     await dispatch(updateUser({
         id:id,
@@ -41,11 +45,13 @@ try{
         skip:skip,
         searchValue:searchTerm
     }))
+   
 }catch(error){
     console.log(error)
 }
 finally{
     navigate("/")
+    setLoading(false)
 }
 }
 const formik=useFormik({
@@ -92,7 +98,7 @@ onChange={formik.handleChange}
 value={formik.values.email || ""}
 />
 {formik.errors.email && <p className="w-full mt-[-15px] text-red-600 font-bold">{formik.errors.email}</p>}
-             <Button type="submit" title={updateuserloading===true ? "Wait..." : "Update user"} height="h-[40px]" background="bg-blue-600"></Button>
+             <Button type="submit" title={loading===true ? "Wait..." : "Update user"} height="h-[40px]" background="bg-blue-600"></Button>
           
         </form>
        </div>

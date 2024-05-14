@@ -49,9 +49,6 @@ export const userData = createSlice({
     searchTerm:"",//İnput elementi change olduqda bu state o inputun dəyərin alır və getUsers funksiyası içində URL-ə query olaraq ötürülür və bu state uyğun istifadəçilər api-dən geri dönür
     successMessage:null,//Bu state delete update və putch post metodları uğurlu olarsa ekranda success bildirimi göstərmək üçün yaradılıb
     errorMessage:null,//Bu state delete update və putch post metodları uğursuz olarsa ekranda error bildirimi göstərmək üçün yaradılıb
-    deleteLoading:false,//Bu state delete funksiyasi cagirildıginda funksiyanin pending veziyyetinde progress gostermek ucun
- adduserloading:false,//Bu state adduser funksiyasi cagirildıginda funksiyanin pending veziyyetinde progress gostermek ucun
-  updateuserloading:false,
 },
   reducers: {
     //Bu iki funksiya istifadəçi prev və next butonları ilə səhifələmə edərkən işə düşür.API-ye ne qeder isitfadəçi paginatio etməsini bildirmək üçündür Footer komponentində isitfadə edilir
@@ -91,39 +88,24 @@ changeSuccessStatus:(state)=>{
     });
     //AddUser funksiyasının uğurlu və uğursuz olmağına uyğun success və ya error bilidirimini göstərmək üçün 
   //Error və success mesajları backenddən göndərmədiyim üçün mesaj mətnini burada təyin etdim
-  builder.addCase(addUser.pending,(state)=>{
-   state.adduserloading=true;
-    });
   builder.addCase(addUser.fulfilled,(state)=>{
 state.successMessage="User successfully added";
-state.adduserloading=false;
 });
 builder.addCase(addUser.rejected,(state)=>{
   state.errorMessage="User dont saved";
-  state.adduserloading=false;
   });
   //UserDelete funksiyasının uğurlu və uğursuz olmağına uyğun success və ya error bilidirimini göstərmək üçün 
-  builder.addCase(deleteUser.pending,(state)=>{
-    state.deleteLoading=true;
-});
   builder.addCase(deleteUser.fulfilled,(state)=>{
-    state.deleteLoading=false;
         state.successMessage="User successfully deleted";
     });
     builder.addCase(deleteUser.rejected,(state)=>{
-      state.deleteLoading=false;
       state.errorMessage="An error occurred while deleting the user";
   });
   //User update funksiyasının uğurlu və uğursuz olmağına uyğun success və ya error bilidirimini göstərmək üçün 
-  builder.addCase(updateUser.pending,(state)=>{
-      state.updateuserloading=true;
-});
   builder.addCase(updateUser.fulfilled,(state)=>{
-    state.updateuserloading=false;
     state.successMessage="User successfully updated";
 });
 builder.addCase(updateUser.rejected,(state)=>{
-  state.updateuserloading=false;
   state.errorMessage="User not updated";
 })
   
